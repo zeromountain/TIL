@@ -9,8 +9,6 @@ HTML은 이미지를 제외한 나머지는 글자와 상자로 표현할 수 �
 인라인 요소의 대표적인 태그는 다음과 같다. 
 
 - `span`
-- `p`
-- `h1~h6`
 
 ```html
 <span>Hello</span>
@@ -38,6 +36,8 @@ Hello Github
 블록 요소의 대표적인 태그는 다음과 같다.
 
 - `div`
+- `p`
+- `h1~h6`
 
 ```html
 <div>Hello</div>
