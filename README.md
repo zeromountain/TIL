@@ -3,8 +3,6 @@
 오늘 학습한 내용을 기록합니다.
 
 ---
-
-- 프론트엔드와 백엔드로 구분
-  - 프레임워크, 라이브러리 단위로 구분
-  - HTML, CSS 프론트엔드 영역으로 포함
-- 언어별로 구분
+[HTML](https://github.com/zeromountain/TIL/tree/main/FrontEnd/HTML)
+[CSS](https://github.com/zeromountain/TIL/tree/main/FrontEnd/CSS)
+[Javscript](https://github.com/zeromountain/TIL/tree/main/Jvascript)
