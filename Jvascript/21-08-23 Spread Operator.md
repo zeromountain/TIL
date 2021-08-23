@@ -52,3 +52,20 @@ console.log(obj5); // {a:1, b:'1'}
 - 배열과 객체의 요소에 spread 연산자를 사용할 때, `[]`, `{}` 안에서 사용해야 오류가 발생하지 않는다.
   - `[]`, `{}` 이외에 사용하면, `VM6044:1 Uncaught TypeError: Found non-callable @@iterator at <anonymous>:1:9`이라는 오류가 발생한다.
   - 이는 배열과 객체가 연속적인 데이터의 속성을 가지고 있기 때문이다.
+
+```js
+var arr = [10, 20, 30];
+
+functino add(a,b,c) {
+  console.log(a + b + c);
+}
+
+add(arr[0], arr[1], arr[2]); // 60
+
+// spread operator 이전
+add.apply(undefined, arr);
+
+// spread operator
+add(...arr); // 60
+```
+- spread operaotr를 함수 인자에 사용해서 여러개의 인자를 표현할 수 있다.
