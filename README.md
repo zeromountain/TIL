@@ -7,3 +7,4 @@
 - [CSS](https://github.com/zeromountain/TIL/tree/main/FrontEnd/CSS)
 - [Sass](https://github.com/zeromountain/TIL/tree/main/FrontEnd/Sass)
 - [Javscript](https://github.com/zeromountain/TIL/tree/main/Jvascript)
+- [Typescript](https://github.com/zeromountain/TIL/tree/main/Typescript)
