@@ -27,4 +27,6 @@
 - Node
 - Express
 - Nest
+- Sequelize
 - Spring
+- JPA
