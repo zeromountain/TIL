@@ -18,6 +18,7 @@
 ### 번틀러
 - Parcel
 - Webpack
+- Rollup
 
 ### 컴파일러
 - Babel
