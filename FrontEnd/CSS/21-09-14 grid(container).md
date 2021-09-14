@@ -1,0 +1,464 @@
+# Grid
+
+컨테이너를 만들고 각 아이템을 그리드 셀에 배치하는 방식의 `inside` 박스 모델
+
+> - 그리드 컨테이너: `display: grid`를 적용하는 그리드 전체 영역
+> 
+> - 그리드 아이템: 그리드 컨테이너의 자식 요소
+>
+> - 그리드 트랙: 그리드의 행과 열
+> 
+> - 그리드 셀: 그리드 내부의 한 칸(모눈종이)
+> 
+> <img width="200px" height="200px" src="https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile10.uf.tistory.com%2Fimage%2F992AC73C5A799FB8051F5B" />
+>
+> - 그리드 라인: 그리드 셀을 구분하는 선
+> 
+> - 그리드 넘버: 그리드 라인의 각 번호
+> 
+> - 그리드 갭: 그리드 셀 사이의 간격
+> 
+> - 그리드 영역: 그리드 라인으로 둘러싸인 사각형 영역으로 그리드 셀의 집합
+
+## 그리드 컨테이너
+
+### grid-template-rows
+
+- 행의 이름과 행의 사이즈를 설정
+
+**SYNTAX**
+```css
+grid-template-rows: <length: px> | <fr>
+```
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+  height: 500px;
+
+  display: grid;
+  
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 30px;
+}
+```
+<img width="200px" src="https://user-images.githubusercontent.com/54147313/133196751-d2c471f0-8262-44f5-b477-22435ee23646.png" />
+
+- 3번째 행까지 `1fr`이 적용되어 높이가 길게 적용되었지만
+- 4번째 행부터는 template-rows 속성이 적용되지 않아 컨텐츠의 크기만큼 높이를 차지한 것을 확인할 수 있다
+
+### grid-template-columns 
+
+- 열의 이름과 열의 사이즈를 설정
+
+**SYNTAX**
+```css
+grid-template-columns: <length> | <fr>
+```
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+  height: 500px;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 30px;
+}
+```
+
+![스크린샷 2021-09-14 오후 2 01 24](https://user-images.githubusercontent.com/54147313/133197760-dfd16475-d26f-403f-a201-0101cb704b30.png)
+
+- 가로로 2개의 열이 만들어졌고 2:1의 비율로 크기가 설정된 것을 확인할 수 있다
+
+### grid-template-areas
+
+- 각각의 아이템의 셀 영역을 지정
+
+**SYNTAX**
+```css
+grid-template-areas: "a b";
+grid-template-areas: "a b b"
+                     "a c d";
+        
+```
+- a, b, c, d는 각 아이템의 `area` 네임
+
+**예제**
+```html
+<div class="container">
+  <div class="item header">header</div>
+  <div class="item main">main</div>
+  <div class="item sidebar">sidebar</div>
+  <div class="item footer">footer</div>
+</div>
+```
+
+```css
+.container {
+  border: 5px dashed orange;
+  height: 400px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "hd hd hd hd hd"
+    "ma ma ma . sb"
+    "ft ft ft ft ft";
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 30px;
+}
+
+.header {
+  grid-area: hd;
+}
+.main {
+  grid-area: ma;
+}
+.sidebar {
+  grid-area: sb;
+}
+.footer {
+  grid-area: ft;
+}
+```
+
+<img width="392" alt="grid-template-areas" src="https://user-images.githubusercontent.com/54147313/133198360-73949f89-eb0c-4b63-9a2e-5866e9ff7afe.png">
+
+- `grid-template-areas`에 문자열로 입력한 형식대로 그리드 아이템들이 셀에 배치된 것을 확인 할수 있다
+- 5열 3행
+
+### gap
+
+- 행과 열의 간격 설정
+
+#### row-gap
+
+- 행들간의 간격 설정
+
+#### column-gap
+
+- 열들간의 간격 설정
+
+**SYNTAX**
+```css
+gap: <row-gap>, <column-gap>
+row-gap: <length> | <percentage>
+column-gap: <length> | <percentage>
+```
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+  width: 400px;
+  height: 400px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  /*row-gap: 20px;
+  column-gap: 50px;*/ 
+  gap: 20px 50px;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+```
+
+<img width="428" alt="gap" src="https://user-images.githubusercontent.com/54147313/133199266-3be21a8e-20d9-4d1a-a850-d2ed540e2931.png">
+
+- 빨간 빗금 쳐진 영역이 각 아이템들 간의 간격을 나타낸다
+- 행들간의 간격에는 20px 열들간의 간격에는 50px이 적용된 것을 확인할 수 있다
+
+### grid-auto-rows
+
+- 아이템이 추가되어 그리드의 영역을 넘처나는 경우 추가된 행의 높이를 설정
+
+**SYNTAX**
+```css
+get-auto-rows: <length> | <percentage> | <fr>
+``` 
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+
+  display: grid;
+  grid-template-rows: 100px 150px 80px;
+  grid-auto-rows: 200px;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+```
+
+![스크린샷 2021-09-14 오후 2 33 02](https://user-images.githubusercontent.com/54147313/133200634-6f1a113c-9624-44c4-87c5-1e4d74e01800.png)
+
+- `grid-template-rows`로 길이가 설정된 행들은 각각 100px, 150px, 80px이 적용되었고
+- `grid-template-rows`가 적용되지 않은 4번째, 5번째 요소들은 200px이 적용된 것을 확인할 수 있다
+
+### grid-auto-columns
+
+- 아이템이 추가되어 그리드의 영역을 넘처나는 경우 추가된 열의 너비를 설정
+
+**SYNTAX**
+```css
+grid-auto-columns: <length> | <percentage> | <fr>
+```
+
+**예제**
+```css
+.container {
+  width: 100%;
+  border: 5px dashed orange;
+
+  display: grid;
+  grid-template-areas: "a a a";
+  gap: 10px;
+  grid-auto-columns: 300px;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+```
+
+![스크린샷 2021-09-14 오후 2 54 22](https://user-images.githubusercontent.com/54147313/133202612-6d5cb96b-eb97-4d70-8713-a9ee25de8a2b.png)
+
+- grid는 기본적으로 각 아이템들이 grid 셀을 가득 채우려는 속성을 가지고 있다
+- `grid-auto-columns` 속성을 사용해 이러한 성질을 제어할 수 있다 
+  - `grid-auto-columns`를 적용하지 않으면 아이템들이 3 * 3 의 셀에 셀을 가득 채운 배치 형태가 나타나지만 (gap 설정으로 10px 간격)
+  - `grid-auto-colums`를 적용하면 300px의 고정 너비를 가지게 된다
+
+### grid-auto-flow
+
+- 아이템들이 어떤 형태로 흘러갈 것인지 설정
+  - flex-direction과 유사
+
+**SYNTAX**
+```css
+grid-auto-flow: row;
+grid-auto-flow: column;
+grid-auto-flow: dense;
+grid-auto-flow: row dense;
+grid-auto-flow: column dense;
+```
+- row: 아이템들의 배치 방향을 행으로 설정
+- column: 아이템들의 배치 방향을 열로 설정
+- dense: 셀에 채울 수 있는 아이템들이 있다면 최대한 빽빽히 채우는 알고리즘
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: row dense;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+
+.item:nth-child(2) {
+  grid-column: span 3;
+}
+```
+
+<img width="596" alt="dense" src="https://user-images.githubusercontent.com/54147313/133204788-0e62f8a2-1b31-4668-b92c-012cc99df92e.png">
+
+- 2번째 아이템이 열을 3칸을 차지하도록 설정되었기 때문에
+- dense 알고리즘은 2번 아이템 요소를 제외하고 채울 수 있는 다른 아이템을 선별해
+- 1, 3, 4 아이템을 1행에 채우고 2행의 3칸을 모두 2번 아이템에 사용되도록 한것을 확인할 수 있다
+
+### grid
+
+- `grid-template`(외재적) 속성과 `grid-auto`(내재적) 속성을 단축속성으로 사용
+
+**SYNTAX**
+```css
+grid: <row property> / <column property>
+```
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+
+  display: grid;
+  /*grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 2fr 3fr 4fr;
+  grid-auto-flow: column dense;*/
+
+  grid: 1fr 2fr 3fr 4fr / auto-flow dense 100px 200px;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+```
+
+![스크린샷 2021-09-14 오후 3 25 28](https://user-images.githubusercontent.com/54147313/133206088-58e1aebb-b481-42ec-8ee3-eb178c29b0ff.png)
+
+### align-content
+
+- 그리드의 블록 축을 따라 배치하는 방식을 결정
+  - 컨테이너 내부의 남는 공간을 어떻게 활용할지
+
+### justify-content
+
+- 컨테이너의 내부 축을 따라 배치하는 방식을 결정
+  - 컨테이너 내부의 남는 공간을 어떻게 활용할지 
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+
+  width: 100%;
+  height: 400px;
+
+  display: grid;
+  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 100px);
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+
+.container:nth-child(1) {
+  justify-content: space-between;
+}
+.container:nth-child(2) {
+  align-content: space-between;
+}
+```
+
+<img width="300px" src="https://user-images.githubusercontent.com/54147313/133207352-ab3000a3-5c56-4838-bf0e-546272ceff5b.png">
+
+```css
+.container {
+  border: 5px dashed orange;
+
+  width: 100%;
+  height: 400px;
+
+  display: grid;
+  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 100px);
+  justify-content: center;
+  align-content: center;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+}
+```
+
+<img width="300" alt="grid justify-content align-content" src="https://user-images.githubusercontent.com/54147313/133207795-60f25c2d-beae-4a8b-a9d9-032ac7372784.png">
+
+### align-items
+
+- 컨테이너 각각의 셀 안에서 아이템을 어떻게 배치할지
+  - 가로축
+
+### justify-items
+
+- 컨테이너의 각각의 셀 안에서 아이템을 어떻게 배치할지
+  - 세로축
+
+**예제**
+```css
+.container {
+  border: 5px dashed orange;
+
+  width: 100%;
+  height: 500px;
+
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+
+  justify-items: center;
+  align-items: center;
+}
+
+.item {
+  background-color: paleturquoise;
+  border: 3px solid blue;
+  font-size: 24px;
+  width: 100%;
+  height: 100%;
+}
+.item:nth-child(1) {
+  width: 50px;
+  height: 50px;
+}
+```
+
+<img width="601" alt="grid justify-items align-items" src="https://user-images.githubusercontent.com/54147313/133209088-fe672f45-4112-4ff2-b5b6-c203090f8acd.png">
+
+- 가로 50px, 세로 50px인 1번 아이템이 셀의 중앙에 위치한 것을 확인할 수 있다
+
+## Grid Unit 
+### fr (fraction)
+
+- `1fr` => 요소의 크기 비율이 1:1
+- `1fr 2fr` => 요소의 크기 비율이 1:2
+
+### min-content, max-content
+
+- min-content: 컨텐츠의 가장 긴 단어를 기준으로 아이템 박스 길이를 설정
+- max-content: 컨텐츠를 한 줄로 표현할 수 있는 최대 길이 설정
+
+### auto-fill, auto-fit, minmax
+
+- auto-fill: 남는 공간을 아이템이 찾아서 들어가는 속성
+  - 아이템이 들어갈 수 없는 남는 공간을 그대로 유지 
+- auto-fit: 남는 공간을 아이템이 찾아서 들어가는 속성
+  - 아이템이 들어갈 수 없는 남는 공간을 축소시키고 각 아이템을 확장
+- minmax(최소값, 최대값): 가장 작아질 수 있는 최소 크기와 최대 크기 지정 
+
+### min
+
+- `min(100px, 1fr)` 
+  - 100px의 아이템이 가용 가능한 셀의 아이템의 크기를 100px로 설정
+  - 100px의 아이템이 가용 가능하지 않다면 1fr으로 아이템의 크기를 설정
