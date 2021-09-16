@@ -48,7 +48,7 @@ sum(10, null);
 
 물론, `tsc --init`을 통해서 초기화를 한다면 다음과 같은 `tsconfig.json` 파일을 제공합니다.
 
-```json
+```js
 {
   "compilerOptions": {
   // 옵션은 아래와 같은 형식으로 구성되어 있습니다.
