@@ -302,3 +302,54 @@ console.log(admin.sizes.height); // 169
 console.log(user.sizes.weight); // 68
 console.log(user.sizes.height); // 170
 ```
+
+## 형 변환
+
+- 자바스크립트는 동적 타입 언어로 변수의 자료형을 명시적으로 선언할 필요가 없습니다.
+- 연산자로 인한 계산이나 변수에 전달되는 값은 런타임 때, 자동으로 암묵적 형 변환을 수행합니다.
+- 강제적 형 변환을 위해서는 자료형 함수를 이용해 명시적 형 변환을 수행합니다.
+
+### String 형 변환 예제
+
+```js
+console.log(typeof String(123)); // 123
+console.log(typeof String(1 / 0)); // Infinity
+console.log(typeof String(-1 / 0)); // -Infinity
+console.log(typeof String(NaN)); // NaN
+console.log(typeof String(true)); // true
+console.log(typeof String(false)); // false
+console.log(typeof String(undefined)); // undefined
+console.log(typeof String(null)); // null
+console.log(typeof String('haha')); // haha
+```
+
+### Number 형 변환 예제
+
+```js
+// 모두 자료형은 number =>  강제적 형변환
+console.log(typeof Number('')); // 0
+console.log(typeof Number('123')); // 123
+console.log(typeof Number('hello')); // NaN
+console.log(typeof Number('123hello')); // NaN
+console.log(typeof Number(true)); // 1
+console.log(typeof Number(false)); // 0
+console.log(typeof Number(null)); // 0
+console.log(typeof Number(undefined)); // NaN
+
+console.log(parseInt('123.123')); // 123
+console.log(parseFloat('123.123')); // 123.123
+```
+
+### Boolean 형 변환 예제
+
+```js
+console.log(Boolean('')); // false
+console.log(Boolean('123')); // true
+console.log(Boolean('hello')); // true
+console.log(Boolean('0')); // true
+console.log(Boolean(0)); // false
+console.log(Boolean(123)); // true
+console.log(Boolean(NaN)); // false
+console.log(Boolean(null)); // false
+console.log(Boolean(undefined)); // false
+```
