@@ -222,6 +222,280 @@ add(a); //caller
 console.log(a.v); // 2
 ```
 
+## 메서드
+
+### 함수의 이해
+
+### 함수의 표현
+
+- 다양한 방법으로 함수의 정의가 가능하며, 함수 표현식처럼 함수를 정의하여 변수에 저장이 가능합니다.
+  - 화살표 함수는 다른 함수와의 구조가 다른 것을 확인할 수 있습니다.
+  - 1번과 4번이 같은 주소값을 참조하므로 비교 연산 시에 서로 같음을 확인할 수 있습니다.
+
+```js
+// 1. 함수 선언식
+function add_1(x, y) {
+  return x + y;
+}
+
+// 2. 함수 표현식
+const add_2 = function (x, y) {
+  return x + y;
+};
+
+// 3. 화살표 함수
+const add_3 = (x, y) => x + y;
+
+// 4. value로서의 함수
+const add_4 = add_1;
+
+console.log(add_4(1, 3)); // 4
+
+console.log(add_1 == add_2); // false
+console.log(add_1 == add_4); // true
+
+console.log(Object.getOwnPropertyDescriptors(add_1));
+console.log(Object.getOwnPropertyDescriptors(add_2));
+console.log(Object.getOwnPropertyDescriptors(add_3));
+console.log(Object.getOwnPropertyDescriptors(add_4));
+
+/*
+{
+  length: { value: 2, writable: false, enumerable: false, configurable: true },
+  name: {
+    value: 'add_1',
+    writable: false,
+    enumerable: false,
+    configurable: true
+  },
+  arguments: {
+    value: null,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  },
+  caller: {
+    value: null,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  },
+  prototype: { value: {}, writable: true, enumerable: false, configurable: false }
+}
+
+{
+  length: { value: 2, writable: false, enumerable: false, configurable: true },
+  name: {
+    value: 'add_2',
+    writable: false,
+    enumerable: false,
+    configurable: true
+  },
+  arguments: {
+    value: null,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  },
+  caller: {
+    value: null,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  },
+  prototype: { value: {}, writable: true, enumerable: false, configurable: false }
+}
+
+{
+  length: { value: 2, writable: false, enumerable: false, configurable: true },
+  name: {
+    value: 'add_3',
+    writable: false,
+    enumerable: false,
+    configurable: true
+  }
+}
+
+{
+  length: { value: 2, writable: false, enumerable: false, configurable: true },
+  name: {
+    value: 'add_1',
+    writable: false,
+    enumerable: false,
+    configurable: true
+  },
+  arguments: {
+    value: null,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  },
+  caller: {
+    value: null,
+    writable: false,
+    enumerable: false,
+    configurable: false
+  },
+  prototype: { value: {}, writable: true, enumerable: false, configurable: false }
+}
+*/
+```
+
+#### 함수의 저장
+
+- 배열의 요소 혹은 객체의 속성에 함수를 정의하여 저장이 가능합니다.
+
+```js
+let list = [
+  'john',
+  27,
+  function hello_func() {
+    console.log('hello');
+  },
+];
+let obj = {
+  name: 'john',
+  age: 27,
+  hello_func() {
+    console.log('hello');
+  },
+};
+function hello_func() {
+  console.log('hello');
+}
+
+hello_func(); // hello
+obj.hello_func(); // hello
+list[2](); // hello
+
+console.log(typeof hello_func); // function
+console.log(typeof obj.hello_func); // function
+console.log(typeof list[2]); // function
+
+console.log(Object.getOwnPropertyDescriptors(obj));
+console.log(Object.getOwnPropertyDescriptors(list));
+
+/* 
+{
+  name: {
+    value: 'john',
+    writable: true,
+    enumerable: true,
+    configurable: true
+  },
+  age: { value: 27, writable: true, enumerable: true, configurable: true },
+  hello_func: {
+    value: [Function: hello_func],
+    writable: true,
+    enumerable: true,
+    configurable: true
+  }
+}
+
+{
+  '0': {
+    value: 'john',
+    writable: true,
+    enumerable: true,
+    configurable: true
+  },
+  '1': { value: 27, writable: true, enumerable: true, configurable: true },
+  '2': {
+    value: [Function: hello_func],
+    writable: true,
+    enumerable: true,
+    configurable: true
+  },
+  length: { value: 3, writable: true, enumerable: false, configurable: false }
+}
+*/
+```
+
+### method
+
+- 객체에 저장된 값이 함수인 경우 메서드라고 칭합니다.
+  - 함수가 객체에 저장되는 과정 =>
+    - user라는 객체가 참조 주소를 가지게 됨
+    - user 메모리 주소의 함수 공간은 hello_func 함수의 주소값을 참조
+- 프로퍼티: 객체의 데이터를 저장
+- 메서드: 객체의 데이터를 핸들링하는 함수를 저장
+
+```js
+let user = {
+  nmae: 'Sonny',
+  age: 31,
+  hello_func() {
+    console.log('Hello, Sonny!');
+  },
+};
+```
+
+### method 변경
+
+- 객체 내 초기 선언된 함수를 다른 함수로 변경할 수 있습니다.
+  - 함수의 주소값 변경이 자유로움
+
+```js
+function hello_func() {
+  console.log('hello');
+}
+
+function hi_func() {
+  console.log(`Hello, ${this.name}!`);
+}
+
+let obj = {
+  name: 'Sonny',
+  age: 31,
+  func: hello_func,
+};
+
+hello_func(); // hello
+obj.func(); // hello
+console.log(hello_func == obj.func); // true
+
+obj.func = hi_func;
+hi_func((name = yeongsan)); // Hello, yeongsan!
+obj.func(); // Hello, Sonny!
+console.log(hello_func == obj.func); // false
+console.log(hi_func == obj.func); // true
+```
+
+### this
+
+- 메서드에서 객체 내부의 속성 값에 접근할 수 있는 지시자 역할을 합니다.
+  - obj 주소값: `0x40001234` | introduce 함수 주소값: `0x50001234`
+  - 즉, `0x40001234` 주소의 객체에서 참조하고 있는 introduce 함수는 obj의 프로퍼티를 참조하게 됩니다.
+- this를 사용하는 method는 추가 가능하며, 이 때 this는 런타임에 결정되어 호출한 객체에 따라 다릅니다.
+
+```js
+let obj = {
+	name: "Sonny",
+	age: 31,
+	introduce () {
+		console.log(`Hi, my name is ${this.name}, I'm ${this.age} years old.`
+	}
+}
+```
+
+```js
+let user = { name: 'Sonny' };
+let admin = { name: 'admin' };
+
+function hello_func() {
+  console.log('Hello ' + this.name + '!');
+}
+
+user.func = hello_func;
+admin.func = hello_func;
+
+user.func(); // Hello Sonny!
+admin.func(); // Hello admin!
+
+user['func'](); // Hello Sonny!
+admin['func'](); // Hello admin!
+```
+
 ## 고차함수
 
 - 하나 이상의 함수를 매개 변수로 취하거나 함수를 결과로 반환하는 함수를 말합니다.
