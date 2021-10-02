@@ -99,3 +99,8 @@ console.log(circle2.getArea()); // 12.566370614359172
 ```
 
 - `Circle`과 `Circle.prototype`이 같지 않다는 점에 유의합니다.
+
+# 프로토타입 내용 계속 추가 예정
+
+> 참고
+> 모던 자바스크립트 Deep Dive
