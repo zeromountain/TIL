@@ -38,10 +38,19 @@ console.log(ll);
 ll.head = new Node(123);
 ll.length++;
 console.log(ll);
+/*
+LinkedList { head: Node { data: 123, next: null }, length: 1 }
+*/
 
 ll.head.next = new Node(456);
 ll.length++;
 console.log(ll);
+/*
+LinkedList {
+  head: Node { data: 456, next: Node { data: 123, next: null } },
+  length: 2
+}
+*/
 ```
 
 - LinkedList에 존재하는 객체의 수를 나타내는 length 속성을 통해서 개수와 노드의 존재 유무를 확인 할 수 있습니다.
