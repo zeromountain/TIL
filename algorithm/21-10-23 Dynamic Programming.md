@@ -56,7 +56,7 @@ console.log(fibo_td(6));
 console.log(fibo_td(7));
 ```
 
-### Bottom-Up
+### 🤔 Bottom-Up
 - 반복문을 통해 작은 문제부터 차례대로 해를 찾는 방법
 ```js
 /* 바텀-업 방식 */
@@ -76,7 +76,7 @@ console.log(fibo_bu(6));
 console.log(fibo_bu(7));
 ```
 
-### benchmark
+### 🤔 benchmark
 ```js
 function benchmark(n, callback) {
   let start = Date.now();
@@ -173,7 +173,7 @@ function solution(n, money) {
 }
 ```
 
-### 정수삼각형 문제
+### 😉 정수삼각형 문제
 ```js
 /*
 [문제 설명]
